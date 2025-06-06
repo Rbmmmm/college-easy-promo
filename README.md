@@ -1,46 +1,96 @@
-# Getting Started with Create React App
+# 院易宣 - 高校学院招生宣传平台
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 项目简介
 
-## Available Scripts
+"院易宣"是一款专为高校学院单位设计的智能化招生宣传内容制作与管理SaaS平台。本平台旨在解决当前学院层面招生宣传工作中普遍存在的内容策划难、视觉设计不专业、宣传效率低、缺乏有效互动等问题。
 
-In the project directory, you can run:
+## 核心功能
 
-### `npm start`
+- 🎯 **智能内容创作**：基于AI辅助的招生宣传文案生成
+- 🎨 **专业视觉设计**：丰富的模板库和简易编辑器
+- 📊 **数据洞察**：宣传效果分析和优化建议
+- 🤝 **互动答疑**：智能FAQ和在线问答系统
+- 📱 **活动管理**：招生宣传活动全流程管理
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 技术栈
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- 前端框架：React 18
+- UI组件库：Ant Design 5.x
+- 路由管理：React Router 6
+- 状态管理：React Context
+- 代码规范：ESLint + Prettier
+- 开发语言：TypeScript
 
-### `npm test`
+## 快速开始
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 环境要求
 
-### `npm run build`
+- Node.js >= 16.0.0
+- npm >= 7.0.0
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 安装步骤
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. 克隆项目
+```bash
+git clone https://github.com/your-username/college-easy-promo.git
+cd college-easy-promo
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. 安装依赖
+```bash
+npm install
+```
 
-### `npm run eject`
+3. 启动开发服务器
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. 构建生产版本
+```bash
+npm run build
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 项目结构
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+college-easy-promo/
+├── src/
+│   ├── components/     # 公共组件
+│   ├── pages/         # 页面组件
+│   ├── layouts/       # 布局组件
+│   ├── hooks/         # 自定义Hooks
+│   ├── utils/         # 工具函数
+│   ├── assets/        # 静态资源
+│   └── App.tsx        # 应用入口
+├── public/            # 公共资源
+└── package.json       # 项目配置
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 开发规范
 
-## Learn More
+- 使用 TypeScript 进行开发
+- 遵循 ESLint 和 Prettier 的代码规范
+- 组件采用函数式组件和 Hooks
+- 使用 CSS-in-JS 方案进行样式管理
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 贡献指南
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 提交 Pull Request
+
+## 许可证
+
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
+
+## 联系方式
+
+- 项目维护者：[您的名字]
+- 邮箱：[您的邮箱]
+
+## 致谢
+
+感谢所有为本项目做出贡献的开发者！
