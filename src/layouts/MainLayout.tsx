@@ -9,6 +9,7 @@ import {
   RocketOutlined,
   BarChartOutlined,
   QuestionCircleOutlined,
+  EyeOutlined,
   UserOutlined,
   BellOutlined,
 } from '@ant-design/icons';
@@ -55,6 +56,11 @@ const MainLayout: React.FC = () => {
       key: '/interactive-qa',
       icon: <QuestionCircleOutlined />,
       label: '互动答疑中心',
+    },
+    {
+      key: '/student-preview',
+      icon: <EyeOutlined />,
+      label: '学生页面预览',
     },
   ];
 

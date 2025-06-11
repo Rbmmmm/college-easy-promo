@@ -7,6 +7,7 @@ import VisualDesigner from '../pages/VisualDesigner';
 import CampaignShowcase from '../pages/CampaignShowcase';
 import AnalyticsDashboard from '../pages/AnalyticsDashboard';
 import InteractiveQA from '../pages/InteractiveQA';
+import StudentPreview from '../pages/StudentPreview';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: 'interactive-qa',
         element: <InteractiveQA />,
+      },
+      {
+        path: 'student-preview',
+        element: <StudentPreview />,
       },
     ],
   },
