@@ -8,7 +8,9 @@ export interface CollegeProfile {
     slogan: string;
   };
   deanMessage: {
-    content: string;
+    name: string;
+    title: string;
+    message: string;
     photo?: string;
   };
   coreCompetencies: {
@@ -31,7 +33,9 @@ const initialState: CollegeProfile = {
     slogan: '',
   },
   deanMessage: {
-    content: '',
+    name: '',
+    title: '',
+    message: '',
   },
   coreCompetencies: {
     history: '',
@@ -46,7 +50,7 @@ const initialState: CollegeProfile = {
   },
 };
 
-const collegeProfileSlice = createSlice({
+export const collegeProfileSlice = createSlice({
   name: 'collegeProfile',
   initialState,
   reducers: {

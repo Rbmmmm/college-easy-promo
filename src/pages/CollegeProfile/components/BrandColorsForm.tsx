@@ -1,61 +1,94 @@
 import React from 'react';
-import { Form, Select, Button } from 'antd';
+import { Form, Card, Row, Col, Tooltip, Typography, message, Button } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { updateBrandColors } from '../../../store/slices/collegeProfileSlice';
+import ColorPicker from './ColorPicker';
 
-const { Option } = Select;
+const { Text } = Typography;
 
-interface BrandColorsFormProps {
+interface BrandColorsFormValues {
+  primary: string;
+  secondary: string;
+}
+
+interface Props {
   onNext: () => void;
   onPrev: () => void;
 }
 
-interface BrandColorsFormValues {
-  primaryColor: string;
-  secondaryColor: string;
-}
-
-const BrandColorsForm: React.FC<BrandColorsFormProps> = ({ onNext, onPrev }) => {
+const BrandColorsForm: React.FC<Props> = ({ onNext, onPrev }) => {
   const [form] = Form.useForm<BrandColorsFormValues>();
+  const dispatch = useAppDispatch();
+  const brandColors = useAppSelector((state) => state.collegeProfile.brandColors);
 
-  const handleSubmit = (values: BrandColorsFormValues) => {
-    console.log('品牌颜色：', values);
-    onNext();
+  const handleSubmit = async (values: BrandColorsFormValues) => {
+    try {
+      dispatch(updateBrandColors(values));
+      message.success('品牌视觉已更新');
+    } catch {
+      message.error('保存失败，请重试');
+    }
   };
 
   return (
-    <Form form={form} layout="vertical" onFinish={handleSubmit}>
-      <Form.Item
-        name="primaryColor"
-        label="主色调"
-        rules={[{ required: true, message: '请选择主色调' }]}
-      >
-        <Select placeholder="请选择主色调">
-          <Option value="#1890ff">科技蓝</Option>
-          <Option value="#52c41a">活力绿</Option>
-          <Option value="#722ed1">典雅紫</Option>
-          <Option value="#eb2f96">热情粉</Option>
-        </Select>
-      </Form.Item>
+    <Card
+      title={
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span>品牌视觉</span>
+          <Tooltip title="设置学院的品牌视觉元素，统一宣传风格">
+            <InfoCircleOutlined style={{ color: '#1890ff' }} />
+          </Tooltip>
+        </div>
+      }
+      style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
+    >
+      <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={brandColors}>
+        <Row gutter={24}>
+          <Col span={12}>
+            <Form.Item
+              name="primary"
+              label={
+                <span>
+                  主色调 <Text type="danger">*</Text>
+                  <Tooltip title="学院的主要品牌色，将用于重要元素">
+                    <InfoCircleOutlined style={{ marginLeft: 8, color: '#999' }} />
+                  </Tooltip>
+                </span>
+              }
+              rules={[{ required: true, message: '请选择主色调' }]}
+            >
+              <ColorPicker />
+            </Form.Item>
+          </Col>
 
-      <Form.Item
-        name="secondaryColor"
-        label="辅助色"
-        rules={[{ required: true, message: '请选择辅助色' }]}
-      >
-        <Select placeholder="请选择辅助色">
-          <Option value="#faad14">温暖黄</Option>
-          <Option value="#13c2c2">清新青</Option>
-          <Option value="#fa8c16">活力橙</Option>
-          <Option value="#a0d911">自然绿</Option>
-        </Select>
-      </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" htmlType="submit" style={{ marginRight: 8 }}>
-          下一步
-        </Button>
-        <Button onClick={onPrev}>上一步</Button>
-      </Form.Item>
-    </Form>
+          <Col span={12}>
+            <Form.Item
+              name="secondary"
+              label={
+                <span>
+                  辅助色 <Text type="danger">*</Text>
+                  <Tooltip title="用于次要元素和装饰">
+                    <InfoCircleOutlined style={{ marginLeft: 8, color: '#999' }} />
+                  </Tooltip>
+                </span>
+              }
+              rules={[{ required: true, message: '请选择辅助色' }]}
+            >
+              <ColorPicker />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Form.Item>
+          <Button onClick={onPrev} style={{ marginRight: 8 }}>
+            上一步
+          </Button>
+          <Button type="primary" onClick={onNext}>
+            下一步
+          </Button>
+        </Form.Item>
+      </Form>
+    </Card>
   );
 };
 

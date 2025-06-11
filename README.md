@@ -31,22 +31,26 @@
 ### 安装步骤
 
 1. 克隆项目
+
 ```bash
 git clone https://github.com/your-username/college-easy-promo.git
 cd college-easy-promo
 ```
 
 2. 安装依赖
+
 ```bash
 npm install
 ```
 
 3. 启动开发服务器
+
 ```bash
 npm start
 ```
 
 4. 构建生产版本
+
 ```bash
 npm run build
 ```

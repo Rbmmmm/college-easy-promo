@@ -3,7 +3,6 @@ import { Card, Select, Button, Form, Input, Space, message } from 'antd';
 import { FileTextOutlined, EditOutlined, CopyOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
-const { TextArea } = Input;
 
 interface ContentFormValues {
   type: string;

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, Row, Col, Button, Select, Upload, message, Tabs } from 'antd';
-import { UploadOutlined, DownloadOutlined, EditOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -13,18 +13,7 @@ interface Template {
   preview: string;
 }
 
-const previewStyle = {
-  height: 200,
-  background: '#f0f0f0',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
 const VisualDesigner: React.FC = () => {
-  const [selectedType, setSelectedType] = useState<string>('');
-  const [selectedStyle, setSelectedStyle] = useState<string>('');
-
   // 模拟模板数据
   const templates: Template[] = [
     {
@@ -56,10 +45,6 @@ const VisualDesigner: React.FC = () => {
 
   const handleStyleSelect = (value: string) => {
     message.success(`已选择风格：${value}`);
-  };
-
-  const handleUpload = () => {
-    message.success('素材上传成功');
   };
 
   const handleUseTemplate = (templateId: string) => {
@@ -122,11 +107,7 @@ const VisualDesigner: React.FC = () => {
                     {template.preview}
                   </div>
                   <div style={{ marginTop: 16 }}>
-                    <Button
-                      type="primary"
-                      block
-                      onClick={() => handleUseTemplate(template.id)}
-                    >
+                    <Button type="primary" block onClick={() => handleUseTemplate(template.id)}>
                       使用此模板
                     </Button>
                   </div>

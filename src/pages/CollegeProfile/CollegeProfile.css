@@ -1,0 +1,89 @@
+.section-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.section-card h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.field-row label {
+  font-weight: 500;
+  color: #888;
+  width: 100px;
+  text-align: right;
+}
+
+.field-row span {
+  color: #333;
+}
+
+.upload-mock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.upload-mock img {
+  width: 160px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #f0f2f5;
+}
+
+.upload-mock p {
+  margin: 0;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.preview-card-container {
+  position: sticky;
+  top: 24px;
+}
+
+.preview-card {
+  border: 1px dashed #ddd;
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  background: #fafafa;
+}
+
+.preview-card img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  border-radius: 0;
+  margin-bottom: 16px;
+}
+
+.preview-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.preview-card .tagline {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+}

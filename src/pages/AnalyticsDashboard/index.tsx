@@ -1,6 +1,13 @@
 import React from 'react';
 import { Card, Row, Col, Statistic, Table, Tag, Progress } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined, EyeOutlined, ShareAltOutlined, TeamOutlined, MessageOutlined } from '@ant-design/icons';
+import {
+  ArrowUpOutlined,
+  ArrowDownOutlined,
+  EyeOutlined,
+  ShareAltOutlined,
+  TeamOutlined,
+  MessageOutlined,
+} from '@ant-design/icons';
 
 const AnalyticsDashboard: React.FC = () => {
   // 模拟数据
@@ -80,8 +87,11 @@ const AnalyticsDashboard: React.FC = () => {
               value={pageViews}
               prefix={<EyeOutlined />}
               suffix={
-                <span style={{ fontSize: '14px', color: pageViewsChange > 0 ? '#3f8600' : '#cf1322' }}>
-                  {pageViewsChange > 0 ? '+' : ''}{pageViewsChange}%
+                <span
+                  style={{ fontSize: '14px', color: pageViewsChange > 0 ? '#3f8600' : '#cf1322' }}
+                >
+                  {pageViewsChange > 0 ? '+' : ''}
+                  {pageViewsChange}%
                 </span>
               }
             />
@@ -95,7 +105,8 @@ const AnalyticsDashboard: React.FC = () => {
               prefix={<ShareAltOutlined />}
               suffix={
                 <span style={{ fontSize: '14px', color: sharesChange > 0 ? '#3f8600' : '#cf1322' }}>
-                  {sharesChange > 0 ? '+' : ''}{sharesChange}%
+                  {sharesChange > 0 ? '+' : ''}
+                  {sharesChange}%
                 </span>
               }
             />
@@ -108,8 +119,14 @@ const AnalyticsDashboard: React.FC = () => {
               value={registrations}
               prefix={<TeamOutlined />}
               suffix={
-                <span style={{ fontSize: '14px', color: registrationsChange > 0 ? '#3f8600' : '#cf1322' }}>
-                  {registrationsChange > 0 ? '+' : ''}{registrationsChange}%
+                <span
+                  style={{
+                    fontSize: '14px',
+                    color: registrationsChange > 0 ? '#3f8600' : '#cf1322',
+                  }}
+                >
+                  {registrationsChange > 0 ? '+' : ''}
+                  {registrationsChange}%
                 </span>
               }
             />
@@ -122,8 +139,14 @@ const AnalyticsDashboard: React.FC = () => {
               value={interactions}
               prefix={<MessageOutlined />}
               suffix={
-                <span style={{ fontSize: '14px', color: interactionsChange > 0 ? '#3f8600' : '#cf1322' }}>
-                  {interactionsChange > 0 ? '+' : ''}{interactionsChange}%
+                <span
+                  style={{
+                    fontSize: '14px',
+                    color: interactionsChange > 0 ? '#3f8600' : '#cf1322',
+                  }}
+                >
+                  {interactionsChange > 0 ? '+' : ''}
+                  {interactionsChange}%
                 </span>
               }
             />
@@ -138,7 +161,9 @@ const AnalyticsDashboard: React.FC = () => {
               <div key={item.source} style={{ marginBottom: 16 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                   <span>{item.source}</span>
-                  <span>{item.count} ({item.percentage}%)</span>
+                  <span>
+                    {item.count} ({item.percentage}%)
+                  </span>
                 </div>
                 <Progress percent={item.percentage} showInfo={false} />
               </div>
@@ -147,12 +172,7 @@ const AnalyticsDashboard: React.FC = () => {
         </Col>
         <Col span={12}>
           <Card title="专业访问热度">
-            <Table
-              columns={columns}
-              dataSource={majorData}
-              pagination={false}
-              rowKey="major"
-            />
+            <Table columns={columns} dataSource={majorData} pagination={false} rowKey="major" />
           </Card>
         </Col>
       </Row>

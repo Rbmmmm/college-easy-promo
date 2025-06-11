@@ -1,11 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
 import collegeProfileReducer from './slices/collegeProfileSlice';
+import { loadState, saveState } from '../utils/localStorage';
+import throttle from 'lodash/throttle';
+const preloadedState = loadState();
 
 export const store = configureStore({
   reducer: {
     collegeProfile: collegeProfileReducer,
   },
+  ...(preloadedState && { preloadedState }),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+store.subscribe(
+  throttle(() => {
+    saveState({
+      collegeProfile: store.getState().collegeProfile,
+    });
+  }, 1000)
+);

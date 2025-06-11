@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
-import { Card, Button, Descriptions, Tabs, Form, Input, DatePicker, Select, Table, Tag, message } from 'antd';
-import { CalendarOutlined, EnvironmentOutlined, UserOutlined, QrcodeOutlined } from '@ant-design/icons';
+import {
+  Card,
+  Button,
+  Descriptions,
+  Tabs,
+  Form,
+  Input,
+  DatePicker,
+  Select,
+  Table,
+  Tag,
+  message,
+} from 'antd';
+import { QrcodeOutlined } from '@ant-design/icons';
+import type { Dayjs } from 'dayjs';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -14,6 +27,14 @@ interface Campaign {
   location: string;
   status: string;
   registrations: number;
+}
+
+interface CreateCampaignValues {
+  title: string;
+  type: string;
+  date: Dayjs;
+  location: string;
+  description: string;
 }
 
 const CampaignShowcase: React.FC = () => {
@@ -88,7 +109,7 @@ const CampaignShowcase: React.FC = () => {
     },
   ];
 
-  const handleCreateCampaign = (values: any) => {
+  const handleCreateCampaign = (values: CreateCampaignValues) => {
     console.log('创建活动：', values);
     message.success('活动创建成功！');
     form.resetFields();
