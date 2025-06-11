@@ -1,132 +1,169 @@
-import React from 'react';
-import { Card, Row, Col, Statistic, Table, Tag, Progress } from 'antd';
+import React, { useState } from 'react';
+import {
+  Card,
+  Row,
+  Col,
+  Statistic,
+  Tag,
+  DatePicker,
+  Button,
+  Typography,
+  Space,
+  Tooltip,
+} from 'antd';
 import {
   ArrowUpOutlined,
-  ArrowDownOutlined,
   EyeOutlined,
   ShareAltOutlined,
   TeamOutlined,
   MessageOutlined,
+  DownloadOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
+import ReactECharts from 'echarts-for-react';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/heatmap';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/grid';
+import 'echarts/lib/component/visualMap';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
+
+const { Title, Paragraph } = Typography;
+const { RangePicker } = DatePicker;
+
+// --- 模拟数据 ---
+
+// 1. 招生数据总览
+const totalSignUps = 1234;
+const signUpTrend = 15; // 同比增长
+const scoreDistribution = {
+  '650+': 100,
+  '600-649': 350,
+  '550-599': 500,
+  '500-549': 250,
+  '<500': 34,
+};
+
+// 2. 宣传内容投放效果
+const contentPerformance = {
+  videoViews: 320000,
+  articleViews: 480000, // 32w / 40% * 60%
+  shareRate: 12,
+};
+const channelSource = [
+  { value: 35, name: '官网' },
+  { value: 25, name: '公众号' },
+  { value: 18, name: '抖音' },
+  { value: 15, name: '小红书' },
+  { value: 7, name: '其他' },
+];
+
+// 3. 用户行为洞察
+const popularSearches = [
+  { name: '王牌专业', value: 120 },
+  { name: '学费', value: 98 },
+  { name: '宿舍条件', value: 85 },
+  { name: '奖学金', value: 77 },
+  { name: '就业率', value: 69 },
+  { name: '考研', value: 58 },
+];
+const avgStayTime = 3.2; // 分钟
 
 const AnalyticsDashboard: React.FC = () => {
-  // 模拟数据
-  const pageViews = 12580;
-  const shares = 2345;
-  const registrations = 567;
-  const interactions = 890;
+  const [dateRange, setDateRange] = useState<[Dayjs, Dayjs]>([
+    dayjs().subtract(30, 'day'),
+    dayjs(),
+  ]);
 
-  const pageViewsChange = 12.5;
-  const sharesChange = -2.3;
-  const registrationsChange = 8.7;
-  const interactionsChange = 15.2;
+  // --- ECharts 配置 ---
 
-  // 访问来源数据
-  const sourceData = [
-    { source: '官网链接', count: 4560, percentage: 36.2 },
-    { source: '公众号', count: 3780, percentage: 30.1 },
-    { source: '搜索引擎', count: 2340, percentage: 18.6 },
-    { source: '社交媒体', count: 1560, percentage: 12.4 },
-    { source: '其他', count: 340, percentage: 2.7 },
-  ];
-
-  // 专业访问热度数据
-  const majorData = [
-    { major: '计算机科学与技术', views: 4560, trend: 'up' },
-    { major: '软件工程', views: 3780, trend: 'up' },
-    { major: '人工智能', views: 2340, trend: 'down' },
-    { major: '数据科学', views: 1560, trend: 'up' },
-    { major: '网络工程', views: 890, trend: 'stable' },
-  ];
-
-  const columns = [
-    {
-      title: '专业名称',
-      dataIndex: 'major',
-      key: 'major',
+  const lineChartOption = {
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
     },
-    {
-      title: '访问量',
-      dataIndex: 'views',
-      key: 'views',
+    yAxis: { type: 'value' },
+    series: [{ data: [820, 932, 901, 934, 1290, 1330, 1320], type: 'line' }],
+  };
+
+  const barChartOption = {
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: Object.keys(scoreDistribution),
     },
-    {
-      title: '趋势',
-      dataIndex: 'trend',
-      key: 'trend',
-      render: (trend: string) => {
-        const colors = {
-          up: 'green',
-          down: 'red',
-          stable: 'blue',
-        };
-        const icons = {
-          up: <ArrowUpOutlined />,
-          down: <ArrowDownOutlined />,
-          stable: '-',
-        };
-        return (
-          <Tag color={colors[trend as keyof typeof colors]}>
-            {icons[trend as keyof typeof icons]}
-          </Tag>
-        );
+    yAxis: { type: 'value' },
+    series: [{ data: Object.values(scoreDistribution), type: 'bar' }],
+  };
+
+  const pieChartOption = {
+    tooltip: { trigger: 'item' },
+    legend: { top: '5%', left: 'center' },
+    series: [
+      {
+        name: '渠道来源',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2,
+        },
+        label: { show: false, position: 'center' },
+        emphasis: {
+          label: { show: true, fontSize: '20', fontWeight: 'bold' },
+        },
+        labelLine: { show: false },
+        data: channelSource,
       },
-    },
-  ];
+    ],
+  };
 
   return (
-    <div>
-      <h2>数据洞察看板</h2>
-      <p>实时监控招生宣传效果，助力决策优化</p>
+    <div style={{ padding: '24px' }}>
+      <Row justify="space-between" align="middle" style={{ marginBottom: 24 }}>
+        <Col>
+          <Title level={2}>数据洞察看板</Title>
+          <Paragraph>实时监控招生宣传效果，为决策提供数据支持。</Paragraph>
+        </Col>
+        <Col>
+          <Space>
+            <RangePicker
+              value={dateRange}
+              onChange={(dates) => {
+                if (dates) {
+                  setDateRange([dates[0]!, dates[1]!]);
+                }
+              }}
+            />
+            <Button icon={<DownloadOutlined />}>导出报告</Button>
+            <Tooltip title="自定义看板">
+              <Button icon={<SettingOutlined />} />
+            </Tooltip>
+          </Space>
+        </Col>
+      </Row>
 
-      <Row gutter={[16, 16]}>
+      {/* 招生概况 */}
+      <Title level={4}>招生概况</Title>
+      <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
         <Col span={6}>
           <Card>
             <Statistic
-              title="总访问量"
-              value={pageViews}
-              prefix={<EyeOutlined />}
-              suffix={
-                <span
-                  style={{ fontSize: '14px', color: pageViewsChange > 0 ? '#3f8600' : '#cf1322' }}
-                >
-                  {pageViewsChange > 0 ? '+' : ''}
-                  {pageViewsChange}%
-                </span>
-              }
-            />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="分享次数"
-              value={shares}
-              prefix={<ShareAltOutlined />}
-              suffix={
-                <span style={{ fontSize: '14px', color: sharesChange > 0 ? '#3f8600' : '#cf1322' }}>
-                  {sharesChange > 0 ? '+' : ''}
-                  {sharesChange}%
-                </span>
-              }
-            />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="报名人数"
-              value={registrations}
+              title="累计报名人数"
+              value={totalSignUps}
+              precision={0}
               prefix={<TeamOutlined />}
               suffix={
-                <span
-                  style={{
-                    fontSize: '14px',
-                    color: registrationsChange > 0 ? '#3f8600' : '#cf1322',
-                  }}
-                >
-                  {registrationsChange > 0 ? '+' : ''}
-                  {registrationsChange}%
+                <span style={{ color: '#3f8600', fontSize: '14px' }}>
+                  <ArrowUpOutlined /> {signUpTrend}%
                 </span>
               }
             />
@@ -135,56 +172,89 @@ const AnalyticsDashboard: React.FC = () => {
         <Col span={6}>
           <Card>
             <Statistic
-              title="互动次数"
-              value={interactions}
+              title="内容总浏览量"
+              value={contentPerformance.videoViews + contentPerformance.articleViews}
+              prefix={<EyeOutlined />}
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card>
+            <Statistic
+              title="内容分享率"
+              value={contentPerformance.shareRate}
+              prefix={<ShareAltOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card>
+            <Statistic
+              title="平均停留时长"
+              value={avgStayTime}
+              precision={1}
               prefix={<MessageOutlined />}
-              suffix={
-                <span
-                  style={{
-                    fontSize: '14px',
-                    color: interactionsChange > 0 ? '#3f8600' : '#cf1322',
-                  }}
-                >
-                  {interactionsChange > 0 ? '+' : ''}
-                  {interactionsChange}%
-                </span>
-              }
+              suffix="分钟"
             />
           </Card>
         </Col>
       </Row>
 
-      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+      {/* 招生数据分析 */}
+      <Title level={4}>招生数据分析</Title>
+      <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
         <Col span={12}>
-          <Card title="访问来源分析">
-            {sourceData.map((item) => (
-              <div key={item.source} style={{ marginBottom: 16 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                  <span>{item.source}</span>
-                  <span>
-                    {item.count} ({item.percentage}%)
-                  </span>
-                </div>
-                <Progress percent={item.percentage} showInfo={false} />
-              </div>
-            ))}
+          <Card title="报名人数趋势">
+            <ReactECharts option={lineChartOption} style={{ height: '300px' }} />
           </Card>
         </Col>
         <Col span={12}>
-          <Card title="专业访问热度">
-            <Table columns={columns} dataSource={majorData} pagination={false} rowKey="major" />
+          <Card title="高考成绩分布">
+            <ReactECharts option={barChartOption} style={{ height: '300px' }} />
           </Card>
         </Col>
       </Row>
 
-      <Card title="优化建议" style={{ marginTop: 16 }}>
-        <ul>
-          <li>计算机科学与技术专业访问量最高，建议重点推广该专业的特色课程和就业前景</li>
-          <li>人工智能专业访问量呈下降趋势，建议更新专业介绍内容，突出最新研究成果</li>
-          <li>公众号是主要访问来源，建议增加公众号推文发布频率</li>
-          <li>分享转化率较高，建议优化分享功能，增加分享激励措施</li>
-        </ul>
-      </Card>
+      {/* 宣传效果与用户洞察 */}
+      <Title level={4}>宣传效果与用户洞察</Title>
+      <Row gutter={[16, 16]}>
+        <Col span={8}>
+          <Card title="渠道来源分析">
+            <ReactECharts option={pieChartOption} style={{ height: '300px' }} />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card title="热门搜索关键词">
+            {/* 词云图可以后续引入专门的库 */}
+            <div
+              style={{
+                height: '300px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+                alignItems: 'center',
+              }}
+            >
+              {popularSearches.map((tag) => (
+                <Tag key={tag.name} color="blue">
+                  {tag.name} ({tag.value})
+                </Tag>
+              ))}
+            </div>
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card title="优化建议">
+            <ul style={{ height: '300px', paddingLeft: '20px' }}>
+              <li>抖音渠道转化率高，建议加大短视频内容投放。</li>
+              <li>“王牌专业”是搜索热点，建议制作专题页面详细介绍。</li>
+              <li>大部分用户关心宿舍条件，可制作一期宿舍Vlog。</li>
+              <li>建议在周末晚上8-10点进行内容推送，该时段用户活跃度最高。</li>
+            </ul>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };
