@@ -10,6 +10,8 @@ import {
   Typography,
   Space,
   Tooltip,
+  List,
+  Badge,
 } from 'antd';
 import {
   ArrowUpOutlined,
@@ -19,6 +21,8 @@ import {
   MessageOutlined,
   DownloadOutlined,
   SettingOutlined,
+  WarningOutlined,
+  CheckCircleOutlined,
 } from '@ant-design/icons';
 import ReactECharts from 'echarts-for-react';
 import 'echarts/lib/chart/line';
@@ -73,6 +77,31 @@ const popularSearches = [
   { name: '考研', value: 58 },
 ];
 const avgStayTime = 3.2; // 分钟
+
+// 4. 实时警报
+const alerts = [
+  {
+    id: 1,
+    type: 'warning',
+    content: '“校园开放日”活动页面流量在过去1小时内下降超过 50%。',
+    time: '10分钟前',
+    status: '未处理',
+  },
+  {
+    id: 2,
+    type: 'info',
+    content: '“优秀毕业生分享”直播预约人数已超过 1000人。',
+    time: '1小时前',
+    status: '已读',
+  },
+  {
+    id: 3,
+    type: 'error',
+    content: '“招生简章”页面互动率（点赞/分享）低于平均水平 30%。',
+    time: '3小时前',
+    status: '未处理',
+  },
+];
 
 const AnalyticsDashboard: React.FC = () => {
   const [dateRange, setDateRange] = useState<[Dayjs, Dayjs]>([
@@ -255,6 +284,44 @@ const AnalyticsDashboard: React.FC = () => {
           </Card>
         </Col>
       </Row>
+
+      {/* 实时数据追踪与报警 */}
+      <Title level={4} style={{ marginTop: 24 }}>
+        实时追踪与报警
+      </Title>
+      <Card>
+        <List
+          itemLayout="horizontal"
+          dataSource={alerts}
+          renderItem={(item) => (
+            <List.Item
+              actions={[
+                <Button key="detail" type="link">
+                  查看详情
+                </Button>,
+                <Button key="ignore" type="link">
+                  忽略
+                </Button>,
+              ]}
+            >
+              <List.Item.Meta
+                avatar={
+                  item.type === 'warning' ? (
+                    <WarningOutlined style={{ fontSize: 24, color: '#faad14' }} />
+                  ) : item.type === 'error' ? (
+                    <WarningOutlined style={{ fontSize: 24, color: '#f5222d' }} />
+                  ) : (
+                    <CheckCircleOutlined style={{ fontSize: 24, color: '#52c41a' }} />
+                  )
+                }
+                title={<a href="#">{item.content}</a>}
+                description={`收到时间：${item.time}`}
+              />
+              <Badge status={item.status === '未处理' ? 'error' : 'default'} text={item.status} />
+            </List.Item>
+          )}
+        />
+      </Card>
     </div>
   );
 };

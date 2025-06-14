@@ -8,6 +8,7 @@ import {
   BellOutlined,
   ArrowRightOutlined,
   CrownOutlined,
+  CarryOutOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,6 +22,12 @@ const Dashboard: React.FC = () => {
   };
 
   const quickStartItems = [
+    {
+      icon: <CarryOutOutlined style={{ fontSize: '24px', color: '#722ed1' }} />,
+      title: '任务中心',
+      desc: '统一管理您的待办事项和任务',
+      path: '/task-center',
+    },
     {
       icon: <FileTextOutlined style={{ fontSize: '24px', color: '#1890ff' }} />,
       title: '学院主页',

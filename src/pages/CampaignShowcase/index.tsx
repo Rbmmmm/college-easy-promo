@@ -18,6 +18,7 @@ import {
   Space,
   Modal,
   List,
+  Rate,
 } from 'antd';
 import { QrcodeOutlined, CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import type { Dayjs } from 'dayjs';
@@ -357,6 +358,12 @@ const CampaignShowcase: React.FC = () => {
             )}
             size="small"
           />
+          <Divider />
+          <div>
+            <Text strong>活动评分：</Text>
+            <Rate defaultValue={4.5} allowHalf disabled />
+            <span className="ant-rate-text">4.5 (来自231份评价)</span>
+          </div>
         </Modal>
       )}
     </div>

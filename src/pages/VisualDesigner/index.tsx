@@ -18,24 +18,24 @@ const VisualDesigner: React.FC = () => {
   const templates: Template[] = [
     {
       id: '1',
-      name: '招生简章封面模板1',
+      name: '“未来已来”主题海报',
       type: 'brochure',
       style: 'modern',
-      preview: '模板预览 1',
+      preview: '/act1.webp',
     },
     {
       id: '2',
-      name: '招生简章封面模板2',
+      name: '“数据科学大神说”讲座海报',
       type: 'brochure',
       style: 'academic',
-      preview: '模板预览 2',
+      preview: '/act2.webp',
     },
     {
       id: '3',
-      name: '招生简章封面模板3',
+      name: '“编程马拉松”活动海报',
       type: 'brochure',
       style: 'youth',
-      preview: '模板预览 3',
+      preview: '/act3.webp',
     },
   ];
 
@@ -94,23 +94,25 @@ const VisualDesigner: React.FC = () => {
           <Row gutter={[16, 16]}>
             {templates.map((template) => (
               <Col span={8} key={template.id}>
-                <Card hoverable>
-                  <div
-                    style={{
-                      height: 200,
-                      background: '#f0f0f0',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                <Card
+                  hoverable
+                  cover={
+                    <img
+                      alt={template.name}
+                      src={template.preview}
+                      style={{ height: 200, objectFit: 'cover' }}
+                    />
+                  }
+                >
+                  <Card.Meta title={template.name} />
+                  <Button
+                    type="primary"
+                    block
+                    onClick={() => handleUseTemplate(template.id)}
+                    style={{ marginTop: 16 }}
                   >
-                    {template.preview}
-                  </div>
-                  <div style={{ marginTop: 16 }}>
-                    <Button type="primary" block onClick={() => handleUseTemplate(template.id)}>
-                      使用此模板
-                    </Button>
-                  </div>
+                    使用此模板
+                  </Button>
                 </Card>
               </Col>
             ))}

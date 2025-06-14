@@ -12,6 +12,7 @@ import {
   EyeOutlined,
   UserOutlined,
   BellOutlined,
+  ShopOutlined,
 } from '@ant-design/icons';
 
 const { Header, Content, Sider } = Layout;
@@ -46,6 +47,11 @@ const MainLayout: React.FC = () => {
       key: '/campaign-showcase',
       icon: <RocketOutlined />,
       label: '宣传活动与成果展示',
+    },
+    {
+      key: '/template-market',
+      icon: <ShopOutlined />,
+      label: '模板市场',
     },
     {
       key: '/analytics-dashboard',

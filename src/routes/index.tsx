@@ -8,6 +8,11 @@ import CampaignShowcase from '../pages/CampaignShowcase';
 import AnalyticsDashboard from '../pages/AnalyticsDashboard';
 import InteractiveQA from '../pages/InteractiveQA';
 import StudentPreview from '../pages/StudentPreview';
+import TaskCenter from '../pages/TaskCenter';
+import TemplateMarket from '../pages/TemplateMarket';
+import VolunteerSimulator from '../pages/VolunteerSimulator';
+import LiveSessions from '../pages/LiveSessions';
+import StudentAmbassadors from '../pages/StudentAmbassadors';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +50,26 @@ const router = createBrowserRouter([
       {
         path: 'student-preview',
         element: <StudentPreview />,
+      },
+      {
+        path: 'task-center',
+        element: <TaskCenter />,
+      },
+      {
+        path: 'template-market',
+        element: <TemplateMarket />,
+      },
+      {
+        path: 'volunteer-simulator',
+        element: <VolunteerSimulator />,
+      },
+      {
+        path: 'live-sessions',
+        element: <LiveSessions />,
+      },
+      {
+        path: 'student-ambassadors',
+        element: <StudentAmbassadors />,
       },
     ],
   },

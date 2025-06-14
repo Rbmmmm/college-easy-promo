@@ -17,6 +17,7 @@ import {
   Input,
   Form,
   message,
+  Rate,
 } from 'antd';
 import {
   BookOutlined,
@@ -28,6 +29,9 @@ import {
   ReadOutlined,
   EnvironmentOutlined,
   WechatOutlined,
+  FireOutlined,
+  PlayCircleOutlined,
+  FormOutlined,
 } from '@ant-design/icons';
 import { useAppSelector } from '../../hooks';
 import './style.css';
@@ -209,6 +213,24 @@ const StudentPreview: React.FC = () => {
     { year: 2019, score: 575 },
   ];
 
+  const recommendations = [
+    {
+      title: '你可能对“招生大使”感兴趣',
+      link: '/student-ambassadors',
+      reason: '基于你的浏览历史',
+    },
+    {
+      title: '“数据之光”编程马拉松等你来战！',
+      link: '/campaign-showcase',
+      reason: '根据你的专业匹配测试结果',
+    },
+    {
+      title: '深度解读：机器学习核心课程',
+      link: '#',
+      reason: '你搜索了“AI”相关内容',
+    },
+  ];
+
   useEffect(() => {
     const deadline = new Date('2024-09-01T00:00:00');
     const interval = setInterval(() => {
@@ -283,9 +305,23 @@ const StudentPreview: React.FC = () => {
         <Avatar src="/logo.jpg" size={100} style={{ marginBottom: 24 }} />
         <Title level={1}>{basicInfo.fullName}</Title>
         <Paragraph style={{ fontSize: '18px' }}>{basicInfo.slogan}</Paragraph>
-        <Button type="primary" size="large" shape="round">
-          了解更多
-        </Button>
+        <Space size="large">
+          <Button
+            type="primary"
+            size="large"
+            shape="round"
+            icon={<FormOutlined />}
+            href="/volunteer-simulator"
+          >
+            志愿模拟
+          </Button>
+          <Button size="large" shape="round" icon={<PlayCircleOutlined />} href="/live-sessions">
+            观看直播
+          </Button>
+          <Button size="large" shape="round" icon={<TeamOutlined />} href="/student-ambassadors">
+            学长学姐说
+          </Button>
+        </Space>
       </div>
 
       {/* Dean's Message */}
@@ -321,6 +357,10 @@ const StudentPreview: React.FC = () => {
             <BookOutlined />
             <Title level={4}>历史与文化</Title>
             <Paragraph>{coreCompetencies.history}</Paragraph>
+            <div className="rating-box">
+              <Rate defaultValue={4.5} allowHalf disabled />
+              <span className="ant-rate-text">4.5 (120人评价)</span>
+            </div>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={8}>
@@ -328,6 +368,10 @@ const StudentPreview: React.FC = () => {
             <ExperimentOutlined />
             <Title level={4}>学科与科研</Title>
             <Paragraph>{coreCompetencies.academic}</Paragraph>
+            <div className="rating-box">
+              <Rate defaultValue={4.8} allowHalf disabled />
+              <span className="ant-rate-text">4.8 (256人评价)</span>
+            </div>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={8}>
@@ -335,9 +379,34 @@ const StudentPreview: React.FC = () => {
             <TeamOutlined />
             <Title level={4}>师资力量</Title>
             <Paragraph>{coreCompetencies.faculty}</Paragraph>
+            <div className="rating-box">
+              <Rate defaultValue={4.7} allowHalf disabled />
+              <span className="ant-rate-text">4.7 (188人评价)</span>
+            </div>
           </Card>
         </Col>
       </Row>
+
+      {/* Personalized Recommendations */}
+      <div style={{ margin: '60px 0' }}>
+        <Title level={2} className="section-title">
+          <FireOutlined /> 为你推荐
+        </Title>
+        <List
+          grid={{ gutter: 16, xs: 1, sm: 2, md: 3 }}
+          dataSource={recommendations}
+          renderItem={(item) => (
+            <List.Item>
+              <Card hoverable title={item.title}>
+                <Paragraph type="secondary">{item.reason}</Paragraph>
+                <Button type="primary" href={item.link}>
+                  查看详情
+                </Button>
+              </Card>
+            </List.Item>
+          )}
+        />
+      </div>
 
       {/* 专业介绍/课程体系 */}
       <div
