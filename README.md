@@ -33,7 +33,7 @@
 1. 克隆项目
 
 ```bash
-git clone https://github.com/your-username/college-easy-promo.git
+git clone https://github.com/Rbmmmm/college-easy-promo
 cd college-easy-promo
 ```
 
@@ -55,6 +55,33 @@ npm start
 npm run build
 ```
 
+### 在其他设备上访问
+
+当您通过 `npm start` 启动开发服务器后，默认情况下，它只能通过 `localhost` 或 `127.0.0.1` 在本机访问。如果您希望在同一局域网下的其他设备（如手机、平板）上预览应用，请按以下步骤操作：
+
+1.  **查找本机IP地址**:
+    *   **在 macOS 或 Linux 上**: 打开终端，输入 `ifconfig | grep "inet "` 或 `ip addr show | grep "inet "`，找到您的局域网IP地址（通常以 `192.168.` 开头）。
+    *   **在 Windows 上**: 打开命令提示符（CMD），输入 `ipconfig`，找到“无线局域网适配器 WLAN”或“以太网适配器”下的“IPv4 地址”。
+
+2.  **修改启动脚本**:
+    打开 `package.json` 文件，找到 `scripts` 部分的 `start` 命令，并添加 `--host 0.0.0.0` 参数。这会让开发服务器监听所有可用的网络接口。
+
+    ```json
+    "scripts": {
+      "start": "react-scripts start --host 0.0.0.0",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    ```
+    *注意：Create React App 项目可能需要您直接修改启动脚本或使用 cross-env 等工具。如果上述方法不适用，请参考您项目的具体配置。*
+
+3.  **访问应用**:
+    在您的其他设备上，打开浏览器，输入 `http://<您的本机IP地址>:3000` （请将 `<您的本机IP地址>` 替换为您在第一步中找到的实际IP地址）。
+
+4.  **防火墙设置**:
+    请确保您的电脑防火墙没有阻止端口 `3000` 的入站连接。如有必要，请为 Node.js 或您的终端应用添加入站规则。
+
 ## 项目结构
 
 ```
@@ -71,30 +98,7 @@ college-easy-promo/
 └── package.json       # 项目配置
 ```
 
-## 开发规范
-
-- 使用 TypeScript 进行开发
-- 遵循 ESLint 和 Prettier 的代码规范
-- 组件采用函数式组件和 Hooks
-- 使用 CSS-in-JS 方案进行样式管理
-
-## 贡献指南
-
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 提交 Pull Request
-
-## 许可证
-
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
-
 ## 联系方式
 
-- 项目维护者：[您的名字]
-- 邮箱：[您的邮箱]
-
-## 致谢
-
-感谢所有为本项目做出贡献的开发者！
+- 项目维护者：任北鸣
+- 邮箱：renbeiming@outlook.com
